@@ -145,6 +145,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Fallback route for unmatched routes - return 404
+  app.all('*', (_req: Request, res: Response) => {
+    res.status(404).json({ message: 'Route not found' });
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
